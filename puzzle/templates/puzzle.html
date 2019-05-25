@@ -1,0 +1,28 @@
+{% load staticfiles %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ puzzle_title }}</title>
+</head>
+<body>
+<div align="center">
+    <img src="{{ puzzle_image }}" height="{{ puzzle_image_width_height }}%" width="{{ puzzle_image_width_height }}%">
+    <p>{{ puzzle_description|linebreaks  }}</p>
+{#    <audio src="{{ puzzle_audio }}"></audio>#}
+    {% if puzzle_audio %}
+        <audio controls autoplay="true">
+            <source src="{{ puzzle_audio }}" type="audio/mp3" >
+            Your browser does not support the audio tag. Listen <a href="{{ puzzle_audio }}">This</a>
+        </audio>
+    {% endif %}
+    <br>
+    <form method="post" action="{% url 'pass_level' %}">
+        {% csrf_token %}
+        <input type="text" name="password">
+        <input type="submit" value="ثبت">
+    </form>
+</div>
+</body>
+</html>
